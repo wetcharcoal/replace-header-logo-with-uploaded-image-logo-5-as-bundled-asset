@@ -1,0 +1,364 @@
+// Version: 3.0.0
+type ApprovalStatus__641045796 = {#approved; #pending; #rejected};
+type ApprovalStatus__944573617 = {#approved; #pending; #rejected};
+type CategoryMatch__134260247 =
+  {
+    category : ResourceCategory__587833229;
+    needIds : [Text];
+    resourceIds : [Text]
+  };
+type CategoryMatch__14541851 =
+  {
+    category : ResourceCategory__310396811;
+    needIds : [Text];
+    resourceIds : [Text]
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Event__122667370 =
+  {
+    creatorProfileId : Text;
+    description : Text;
+    id : Text;
+    image : ?Text;
+    location : Text;
+    needs : [Text];
+    owner : Principal;
+    time : Int
+  };
+type Event__492135844 =
+  {
+    creatorProfileId : Text;
+    description : Text;
+    id : Text;
+    image : ?Text;
+    location : Text;
+    needs : [Text];
+    owner : Principal;
+    time : Int
+  };
+type FileReference__486842902 = {hash : Text; path : Text};
+type FunctionType__438065849 =
+  {
+    #distribution;
+    #education;
+    #equipmentSpace;
+    #processing;
+    #production;
+    #wasteManagement
+  };
+type FunctionType__542723567 =
+  {
+    #distribution;
+    #education;
+    #equipmentSpace;
+    #processing;
+    #production;
+    #wasteManagement
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type JoinRequestStatus__21973353 = {#approved; #denied; #pending};
+type JoinRequestStatus__714264090 = {#approved; #denied; #pending};
+type JoinRequest__145190902 =
+  {
+    displayName : ?Text;
+    principal : Principal;
+    profileId : Text;
+    status : JoinRequestStatus__21973353
+  };
+type JoinRequest__81935976 =
+  {
+    displayName : ?Text;
+    principal : Principal;
+    profileId : Text;
+    status : JoinRequestStatus__714264090
+  };
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type List__824873305<T> = ?(T, List__824873305<T>);
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Need__548413854 =
+  {
+    category : ResourceCategory__310396811;
+    description : Text;
+    endDate : Int;
+    id : Text;
+    owner : Principal;
+    profileId : Text;
+    startDate : Int
+  };
+type Need__706349741 =
+  {
+    category : ResourceCategory__587833229;
+    description : Text;
+    endDate : Int;
+    id : Text;
+    owner : Principal;
+    profileId : Text;
+    startDate : Int
+  };
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type OldApprovalState__567598485 =
+  {
+    var approvalStatus :
+      OldMap__30246564<Principal, ApprovalStatus__641045796>
+  };
+type OldMap__30246564<K, V> = {root : OldTree__1067815148<K, V>; size : Nat};
+type OldRegistry__429183789 =
+  {
+    var authorizedPrincipals : [Principal];
+    var blobsToRemove : OldMap__30246564<Text, Bool>;
+    var references : OldMap__30246564<Text, FileReference__486842902>
+  };
+type OldTree__1067815148<K, V> =
+  {
+    #black : (OldTree__1067815148<K, V>, K, V, OldTree__1067815148<K, V>);
+    #leaf;
+    #red : (OldTree__1067815148<K, V>, K, V, OldTree__1067815148<K, V>)
+  };
+type ProfileCreationEntry__113613860 =
+  {
+    creator : Principal;
+    organizationName : Text;
+    profileId : Text;
+    timestamp : Int
+  };
+type ProfileCreationEntry__995266612 =
+  {
+    creator : Principal;
+    organizationName : Text;
+    profileId : Text;
+    timestamp : Int
+  };
+type ProfileMember__421840469 =
+  {
+    displayName : ?Text;
+    principal : Principal;
+    role : ProfileRole__1064233922
+  };
+type ProfileMember__621566595 =
+  {displayName : ?Text; principal : Principal; role : ProfileRole__881274070};
+type ProfileRole__1064233922 = {#clubAdmin; #user};
+type ProfileRole__881274070 = {#clubAdmin; #user};
+type Profile__340690988 =
+  {
+    address : ?Text;
+    bio : ?Text;
+    email : Text;
+    functions : [FunctionType__542723567];
+    id : Text;
+    needs : [Text];
+    organizationName : Text;
+    owner : Principal;
+    phone : ?Text;
+    profilePicture : ?Text;
+    resources : [Text]
+  };
+type Profile__468371081 =
+  {
+    address : ?Text;
+    bio : ?Text;
+    email : Text;
+    functions : [FunctionType__438065849];
+    id : Text;
+    needs : [Text];
+    organizationName : Text;
+    owner : Principal;
+    phone : ?Text;
+    profilePicture : ?Text;
+    resources : [Text]
+  };
+type ResourceCategory__310396811 =
+  {
+    #distributionSpace;
+    #equipment;
+    #foodDrink;
+    #kitchenSpace;
+    #other;
+    #publicity;
+    #storageSpace
+  };
+type ResourceCategory__587833229 =
+  {
+    #distributionSpace;
+    #equipment;
+    #foodDrink;
+    #kitchenSpace;
+    #other;
+    #publicity;
+    #storageSpace
+  };
+type ResourceHave__768927291 =
+  {
+    category : ResourceCategory__310396811;
+    description : Text;
+    id : Text;
+    owner : Principal;
+    profileId : Text
+  };
+type ResourceHave__91115398 =
+  {
+    category : ResourceCategory__587833229;
+    description : Text;
+    id : Text;
+    owner : Principal;
+    profileId : Text
+  };
+type SuspensionInfo__1009165448 =
+  {reason : Text; suspendedAt : Int; suspendedBy : Principal};
+type SuspensionInfo__48393687 =
+  {reason : Text; suspendedAt : Int; suspendedBy : Principal};
+type SuspiciousActivityFlag__1023197778 =
+  {
+    activityType : SuspiciousActivityType__215625696;
+    details : Text;
+    principal : Principal;
+    timestamp : Int
+  };
+type SuspiciousActivityFlag__902673172 =
+  {
+    activityType : SuspiciousActivityType__286068524;
+    details : Text;
+    principal : Principal;
+    timestamp : Int
+  };
+type SuspiciousActivityType__215625696 =
+  {#rapidAccountCreation; #repeatedFailedRegistration; #unusualPattern};
+type SuspiciousActivityType__286068524 =
+  {#rapidAccountCreation; #repeatedFailedRegistration; #unusualPattern};
+type UserProfile__315128327 = {profileId : Text};
+type UserProfile__491224006 = {profileId : Text};
+type UserRole__1073662873 = {#admin; #guest; #user};
+type UserRole__717262347 = {#admin; #guest; #user};
+type WhitelistEntry__10206636 =
+  {principal : Principal; reason : Text; timestamp : Int};
+type WhitelistEntry__971495414 =
+  {principal : Principal; reason : Text; timestamp : Int};
+actor ({
+  stable ADMIN_PRINCIPAL : Text;
+  in accessControlState :
+    {
+      var adminAssigned : Bool;
+      var userRoles : OldMap__30246564<Principal, UserRole__717262347>
+    };
+  in var approvalState : OldApprovalState__567598485;
+  in var categoryMatches : OldMap__30246564<Text, CategoryMatch__14541851>;
+  in var displayNames : OldMap__30246564<Principal, Text>;
+  in var events : OldMap__30246564<Text, Event__122667370>;
+  in var historicalWhitelist :
+    OldMap__30246564<Principal, WhitelistEntry__10206636>;
+  in var joinRequests :
+    OldMap__30246564<Text, List__824873305<JoinRequest__145190902>>;
+  in var needs : OldMap__30246564<Text, Need__548413854>;
+  in var profileCreationLog :
+    List__824873305<ProfileCreationEntry__995266612>;
+  in var profileMembers :
+    OldMap__30246564<Text,
+                      OldMap__30246564<Principal, ProfileMember__421840469>>;
+  in var profiles : OldMap__30246564<Text, Profile__468371081>;
+  in var registrationAttempts :
+    OldMap__30246564<Principal, List__824873305<Int>>;
+  in registry : OldRegistry__429183789;
+  in var resources : OldMap__30246564<Text, ResourceHave__768927291>;
+  in var suspendedUsers :
+    OldMap__30246564<Principal, SuspensionInfo__48393687>;
+  in var suspiciousActivityFlags :
+    List__824873305<SuspiciousActivityFlag__1023197778>;
+  in var userProfiles : OldMap__30246564<Principal, UserProfile__315128327>
+}, {
+  stable ADMIN_PRINCIPAL : Text;
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable var approvalState :
+    {
+      var approvalStatus :
+        Map__605269027<Principal, ApprovalStatus__944573617>
+    };
+  stable var categoryMatches :
+    {
+      var root : Node__46230540<Text, CategoryMatch__134260247>;
+      var size : Nat__490723111
+    };
+  stable var displayNames :
+    {var root : Node__46230540<Principal, Text>; var size : Nat__490723111};
+  stable var events :
+    {
+      var root : Node__46230540<Text, Event__492135844>;
+      var size : Nat__490723111
+    };
+  stable var historicalWhitelist :
+    {
+      var root : Node__46230540<Principal, WhitelistEntry__971495414>;
+      var size : Nat__490723111
+    };
+  stable var joinRequests :
+    {
+      var root : Node__46230540<Text, List__415060402<JoinRequest__81935976>>;
+      var size : Nat__490723111
+    };
+  stable var needs :
+    {
+      var root : Node__46230540<Text, Need__706349741>;
+      var size : Nat__490723111
+    };
+  stable var profileCreationLog :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ProfileCreationEntry__113613860]];
+      var elementIndex : Nat__490723111
+    };
+  stable var profileMembers :
+    {
+      var root :
+        Node__46230540<Text,
+                        Map__605269027<Principal, ProfileMember__621566595>>;
+      var size : Nat__490723111
+    };
+  stable var profiles :
+    {
+      var root : Node__46230540<Text, Profile__340690988>;
+      var size : Nat__490723111
+    };
+  stable var registrationAttempts :
+    {
+      var root : Node__46230540<Principal, List__415060402<Int>>;
+      var size : Nat__490723111
+    };
+  stable var resources :
+    {
+      var root : Node__46230540<Text, ResourceHave__91115398>;
+      var size : Nat__490723111
+    };
+  stable var suspendedUsers :
+    {
+      var root : Node__46230540<Principal, SuspensionInfo__1009165448>;
+      var size : Nat__490723111
+    };
+  stable var suspiciousActivityFlags :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?SuspiciousActivityFlag__902673172]];
+      var elementIndex : Nat__490723111
+    };
+  stable var userProfiles :
+    {
+      var root : Node__46230540<Principal, UserProfile__491224006>;
+      var size : Nat__490723111
+    }
+}) ;

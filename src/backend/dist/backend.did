@@ -1,0 +1,229 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type WhitelistEntry = 
+ record {
+   "principal": principal;
+   reason: text;
+   timestamp: int;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = record {profileId: text;};
+type UserApprovalInfo = 
+ record {
+   "principal": principal;
+   status: ApprovalStatus;
+ };
+type SuspensionInfo = 
+ record {
+   reason: text;
+   suspendedAt: int;
+   suspendedBy: principal;
+ };
+type ResourceInput = 
+ record {
+   category: ResourceCategory;
+   description: text;
+   id: text;
+   profileId: text;
+ };
+type ResourceHave = 
+ record {
+   category: ResourceCategory;
+   description: text;
+   id: text;
+   owner: principal;
+   profileId: text;
+ };
+type ResourceCategory = 
+ variant {
+   distributionSpace;
+   equipment;
+   foodDrink;
+   kitchenSpace;
+   other;
+   publicity;
+   storageSpace;
+ };
+type RegistrationData = 
+ record {
+   address: opt text;
+   bio: opt text;
+   email: text;
+   functions: vec FunctionType;
+   id: text;
+   organizationName: text;
+   phone: opt text;
+   profilePicture: opt text;
+ };
+type ProfileRole = 
+ variant {
+   clubAdmin;
+   user;
+ };
+type ProfileMember = 
+ record {
+   displayName: opt text;
+   "principal": principal;
+   role: ProfileRole;
+ };
+type Profile = 
+ record {
+   address: opt text;
+   bio: opt text;
+   email: text;
+   functions: vec FunctionType;
+   id: text;
+   needs: vec text;
+   organizationName: text;
+   owner: principal;
+   phone: opt text;
+   profilePicture: opt text;
+   resources: vec text;
+ };
+type NeedInput = 
+ record {
+   category: ResourceCategory;
+   description: text;
+   endDate: int;
+   id: text;
+   profileId: text;
+   startDate: int;
+ };
+type Need = 
+ record {
+   category: ResourceCategory;
+   description: text;
+   endDate: int;
+   id: text;
+   owner: principal;
+   profileId: text;
+   startDate: int;
+ };
+type JoinRequestStatus = 
+ variant {
+   approved;
+   denied;
+   pending;
+ };
+type JoinRequest = 
+ record {
+   displayName: opt text;
+   "principal": principal;
+   profileId: text;
+   status: JoinRequestStatus;
+ };
+type FunctionType = 
+ variant {
+   distribution;
+   education;
+   equipmentSpace;
+   processing;
+   production;
+   wasteManagement;
+ };
+type EventInput = 
+ record {
+   creatorProfileId: text;
+   description: text;
+   id: text;
+   image: opt text;
+   location: text;
+   needs: vec text;
+   time: int;
+ };
+type Event = 
+ record {
+   creatorProfileId: text;
+   description: text;
+   id: text;
+   image: opt text;
+   location: text;
+   needs: vec text;
+   owner: principal;
+   time: int;
+ };
+type ApprovalStatus = 
+ variant {
+   approved;
+   pending;
+   rejected;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initializeAccessControl: () -> ();
+  addEvent: (input: EventInput) -> (Event);
+  addMember: (profileId: text, memberPrincipal: principal, role:
+   ProfileRole) -> ();
+  addNeed: (input: NeedInput) -> (Need);
+  addResource: (input: ResourceInput) -> (ResourceHave);
+  approveJoinRequest: (profileId: text, requestorPrincipal: principal,
+   approved: bool) -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  deleteEvent: (id: text) -> ();
+  deleteNeed: (id: text) -> ();
+  deleteProfile: (id: text) -> ();
+  deleteResource: (id: text) -> ();
+  deleteUser: (user: principal) -> ();
+  getCallerUserProfile: () -> (opt UserProfile) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getDisplayName: () -> (opt text) query;
+  getGlobalMatches: () -> (vec record {
+                                 Need;
+                                 vec ResourceHave;
+                               }) query;
+  getMatches: (profileId: text) ->
+   (vec record {
+          Need;
+          vec ResourceHave;
+        }) query;
+  getProfile: (id: text) -> (opt Profile) query;
+  getSuspensionInfo: (user: principal) -> (opt SuspensionInfo) query;
+  getUserProfile: (user: principal) -> (opt UserProfile) query;
+  initializeAccessControl: () -> ();
+  isCallerAdmin: () -> (bool) query;
+  isCallerApproved: () -> (bool) query;
+  isSuspendedUser: (user: principal) -> (bool) query;
+  listApprovals: () -> (vec UserApprovalInfo) query;
+  listEvents: () -> (vec Event) query;
+  listHistoricalWhitelist: () -> (vec WhitelistEntry) query;
+  listJoinRequests: (profileId: text) -> (vec JoinRequest) query;
+  listMembers: (profileId: text) -> (vec ProfileMember) query;
+  listNeeds: () -> (vec Need) query;
+  listProfiles: () -> (vec Profile) query;
+  listResources: () -> (vec ResourceHave) query;
+  listSuspendedUsers: () -> (vec SuspensionInfo) query;
+  registerProfile: (registrationData: RegistrationData) -> (Profile);
+  removeMember: (profileId: text, memberPrincipal: principal) -> ();
+  requestApproval: () -> ();
+  requestJoin: (profileId: text, displayName: opt text) -> ();
+  saveCallerUserProfile: (profile: UserProfile) -> ();
+  setApproval: (user: principal, status: ApprovalStatus) -> ();
+  setDisplayName: (name: text) -> ();
+  suspendUser: (user: principal, reason: text) -> ();
+  unsuspendUser: (user: principal) -> ();
+  updateProfile: (id: text, data: RegistrationData) -> (Profile);
+}

@@ -1,0 +1,85 @@
+type ResourceHave = 
+ record {
+   category: ResourceCategory;
+   description: text;
+   id: text;
+   profileId: text;
+ };
+type ResourceCategory = 
+ variant {
+   distributionSpace;
+   equipment;
+   foodDrink;
+   kitchenSpace;
+   other;
+   publicity;
+   storageSpace;
+ };
+type Profile = 
+ record {
+   address: text;
+   bio: opt text;
+   email: text;
+   functions: vec FunctionType;
+   id: text;
+   needs: vec text;
+   organizationName: text;
+   phone: text;
+   profilePicture: opt text;
+   resources: vec text;
+ };
+type Need = 
+ record {
+   category: ResourceCategory;
+   description: text;
+   endDate: int;
+   id: text;
+   profileId: text;
+   startDate: int;
+ };
+type FunctionType = 
+ variant {
+   distribution;
+   education;
+   equipmentSpace;
+   processing;
+   production;
+   wasteManagement;
+ };
+type FileReference = 
+ record {
+   hash: text;
+   path: text;
+ };
+type CategoryMatch = 
+ record {
+   category: ResourceCategory;
+   needIds: vec text;
+   resourceIds: vec text;
+ };
+service : {
+  createNeed: (id: text, profileId: text, description: text, category:
+   ResourceCategory, startDate: int, endDate: int) -> ();
+  createResourceHave: (id: text, profileId: text, description: text,
+   category: ResourceCategory) -> ();
+  deleteNeed: (profileId: text, needId: text) -> ();
+  deleteResourceHave: (profileId: text, resourceId: text) -> ();
+  dropFileReference: (path: text) -> ();
+  getAllNeeds: () -> (vec Need) query;
+  getAllProfiles: () -> (vec Profile) query;
+  getAllResources: () -> (vec ResourceHave) query;
+  getCategoryMatches: (category: ResourceCategory) ->
+   (opt CategoryMatch) query;
+  getFileReference: (path: text) -> (FileReference) query;
+  getNeed: (id: text) -> (opt Need) query;
+  getProfile: (id: text) -> (opt Profile) query;
+  getResourceHave: (id: text) -> (opt ResourceHave) query;
+  listFileReferences: () -> (vec FileReference) query;
+  registerFileReference: (path: text, hash: text) -> ();
+  registerProfile: (id: text, organizationName: text, functions:
+   vec FunctionType, address: text, phone: text, email: text, bio: opt text,
+   profilePicture: opt text) -> ();
+  searchNeeds: (searchTerm: text) -> (vec Need) query;
+  searchProfiles: (searchTerm: text) -> (vec Profile) query;
+  searchResources: (searchTerm: text) -> (vec ResourceHave) query;
+}
